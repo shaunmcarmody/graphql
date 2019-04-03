@@ -10,7 +10,7 @@ const sign = payload =>
 
     jwt.sign(payload, secret, options, (err, token) => {
       if (err) {
-        reject()
+        reject('Failed to sign token');
       } else {
         resolve(token)
       }
@@ -19,10 +19,9 @@ const sign = payload =>
 
 const verify = token =>
   new Promise((resolve, reject) => {
-    console.log('verify touched')
     jwt.verify(token, secret, (err, decodedToken) => {
       if (err) {
-        reject()
+        reject('Failed to verify token');
       } else {
         resolve(decodedToken)
       }

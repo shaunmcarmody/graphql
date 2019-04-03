@@ -9,8 +9,8 @@ router.post('/register', async (req, res) => {
   try {
     const result = await db.insertUser(req.body);
     if (result) {
-      const id = await db.getUserId(req.body.username); // { id: n }
-      const token = await jwt.sign(id) // object literal, buffer or string representing valid JSON is required.
+      const { id, departments } = await db.getUser(req.body.username); // { id: n }
+      const token = await jwt.sign({ id, departments }) // object literal, buffer or string representing valid JSON is required.
       res.status(201).json(token);
     }
   } catch (err) {
@@ -25,7 +25,7 @@ router.post('/login', async (req, res) => {
   try {
     const user = await db.getUser(username)
     if (user && bcrypt.compareSync(password, user.password)) {
-      const token = await jwt.sign({ id: user.id })
+      const token = await jwt.sign({ id: user.id, departments: user.departments })
       res.status(201).json(token);
     } else {
       res.status(401).json({ message: 'Invalid Credentials' });
