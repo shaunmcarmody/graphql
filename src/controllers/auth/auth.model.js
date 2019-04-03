@@ -7,10 +7,7 @@ const getUser = username =>
 
 const insertUser = user =>
   db('users')
-    .insert({
-      ...user,
-      departments: JSON.stringify(user.departments),
-    })
+    .insert(user)
 
 module.exports = {
   getUser,

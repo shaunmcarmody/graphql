@@ -1,9 +1,10 @@
 const db = require('../../data/dbConfig.js');
 
-const getUsers = () =>
+const getUsersByDepartment = department =>
   db('users')
-    .select('username', 'departments')
+    .where('department', department)
+    .select('username', 'department')
 
 module.exports = {
-  getUsers
+  getUsersByDepartment
 }

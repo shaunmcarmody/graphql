@@ -14,7 +14,7 @@ exports.up = knex =>
         .notNullable()
 
       tbl
-        .json('departments')
+        .string('department', 128)
         .notNullable();
     })
 
