@@ -1,7 +1,8 @@
 exports.up = knex =>
   knex.schema
     .createTable('users', tbl => {
-      tbl.increments()
+      tbl
+        .increments();
       
       tbl
         .string('username', 128)
@@ -13,7 +14,7 @@ exports.up = knex =>
         .notNullable()
 
       tbl
-        .string('department', 128)
+        .json('departments')
         .notNullable();
     })
 
