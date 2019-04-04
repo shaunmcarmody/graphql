@@ -9,9 +9,10 @@ body {
   text-align: center;
 }
 
-input {
+input, select {
   display: block;
-  margin: auto;
+  margin: 5px auto;
+  width: 150px;
 }
 
 code {

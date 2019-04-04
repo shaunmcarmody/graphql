@@ -30,13 +30,15 @@ class Login extends React.Component {
         />
         {
           !this.state.login ?
-          <input
+          <select
             name="department"
-            onChange={this.handleChange}
-            placeholder="department"
-            type="text"
-            value={this.state.department}
-          /> :
+            onChange={this.updateDepartment}
+          >
+            <option value="teaching">Teaching</option>
+            <option value="student development">Student Development</option>
+            <option value="founders">Founders</option>
+            <option value="students">Students</option>
+          </select> :
           null
         }
         <button>{this.state.login ? 'Login' : 'Signup'}</button>
@@ -81,6 +83,12 @@ class Login extends React.Component {
       return ({
         login: !state.login
       })
+    });
+  }
+
+  updateDepartment = e => {
+    this.setState({
+      department: e.target.value
     });
   }
 }
