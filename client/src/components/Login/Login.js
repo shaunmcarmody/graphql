@@ -36,7 +36,7 @@ class Login extends React.Component {
           >
             <option value="teaching">Teaching</option>
             <option value="student development">Student Development</option>
-            <option value="founders">Founders</option>
+            <option value="advisors">Advisors</option>
             <option value="students">Students</option>
           </select> :
           null
