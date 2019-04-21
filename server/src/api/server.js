@@ -1,16 +1,17 @@
-const express = require('express');
-const helmet = require('helmet');
-const cors = require('cors');
+const { ApolloServer } = require('apollo-server');
+const typeDefs = require('./schema.js');
+const resolvers = require('./resolvers.js');
+const { verify } = require('../utils/jwt.js');
 
-const auth = require('../controllers/auth/auth.routes.js');
-const users = require('../controllers/users/users.routes.js');
-
-const server = express();
-
-server.use(helmet());
-server.use(express.json());
-server.use(cors());
-server.use('/api/auth/', auth);
-server.use('/api/users', users);
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  context: async ({ req }) => {
+    const token = req.headers.authorization || 'null';
+    return verify(token)
+      .then(res => res)
+      .catch(err => console.log(err));
+  },
+});
 
 module.exports = server;

@@ -19,11 +19,11 @@ const sign = payload =>
 
 const verify = token =>
   new Promise((resolve, reject) => {
-    jwt.verify(token, secret, (err, decodedToken) => {
+    jwt.verify(token, secret, (err, { id, username }) => {
       if (err) {
         reject('Failed to verify token');
       } else {
-        resolve(decodedToken)
+        resolve({ userId: id, username })
       }
     })
   })

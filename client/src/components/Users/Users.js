@@ -1,40 +1,37 @@
 import React from 'react';
-import axios from 'axios';
-import requiresAuth from '../../HOC/requiresAuth/requiresAuth';
+import { gql } from 'apollo-boost';
+import { Query } from 'react-apollo';
+// import requiresAuth from '../../HOC/requiresAuth/requiresAuth';
 
-class Users extends React.Component {
-  state= {
-    users: []
-  }
-  render() {
-    return (
-      <>
-        <h2>List of Users</h2>
-        <ul>
-          {
-            this.state.users.map(user => (
-              <li
-                key={user.id}
-              >
-                {user.username}
-              </li>
-            ))
-          }
-        </ul>
-      </>
-    )
-  }
+const GET_USERS = gql`
+    {
+      users {
+        id
+        username
+      }
+    }
+`;
 
-  componentDidMount() {
-    axios
-      .get('/users')
-      .then(res => {
-        this.setState({ users: res.data });
-      })
-      .catch(err => {
-        console.log(err);
-      })
-  }
-}
+const Users = () => (
+  <Query query={GET_USERS}>
+    {({ loading, error, data }) => {
+      if (loading) return "Loading...";
+      if (error) return `Error! ${error.message}`;
+      return (<ul>
+        {
+          data.users.map(user => (
+            <li key={user.id}>
+              {user.username}
+            </li>
+          ))
+        }
+      </ul>)
+    }}
+  </Query>
+);
 
-export default requiresAuth(Users);
+
+
+// export default requiresAuth(Users);
+
+export default Users;

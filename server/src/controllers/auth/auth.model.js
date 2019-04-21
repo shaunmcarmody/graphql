@@ -1,8 +1,9 @@
 const db = require('../../data/dbConfig.js');
 
-const getUser = username =>
+const getUserById = id =>
   db('users')
-    .where('username', username)
+    .where('id', id)
+    .select('id', 'username')
     .first();
 
 const insertUser = user =>
@@ -10,6 +11,6 @@ const insertUser = user =>
     .insert(user)
 
 module.exports = {
-  getUser,
+  getUserById,
   insertUser
 }
