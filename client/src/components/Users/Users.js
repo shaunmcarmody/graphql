@@ -1,7 +1,6 @@
 import React from 'react';
 import { gql } from 'apollo-boost';
 import { Query } from 'react-apollo';
-// import requiresAuth from '../../HOC/requiresAuth/requiresAuth';
 
 const GET_USERS = gql`
     {
@@ -29,9 +28,5 @@ const Users = () => (
     }}
   </Query>
 );
-
-
-
-// export default requiresAuth(Users);
 
 export default Users;

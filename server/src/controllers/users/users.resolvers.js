@@ -1,26 +1,14 @@
+const { AuthenticationError } = require('apollo-server');
 const { getUsers } = require('./users.model.js');
+const { verify } = require('../../utils/jwt.js');
 
-module.exports = async (parent, args, context) => {
-  console.log(context)
+module.exports = async (parent, args, { token }) => {
   try {
+    const { id, username } = await verify(token);
+    console.log(id, username);
     const resource = await getUsers();
     return resource;
   } catch (err) {
-    return err;
+    throw new AuthenticationError('You must be logged in');
   }
 }
-
-
-// const restricted = async (req, res, next) => {
-//   try {
-//     const token = req.headers.authorization;
-//     req.decodedJwt = await jwt.verify(token);
-//     next();
-//   } catch (err) {
-//     res.status(401).json(err);
-//   }
-// }
-
-// module.exports = {
-//   restricted,
-// }

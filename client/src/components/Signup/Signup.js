@@ -19,9 +19,6 @@ const Signup = (props) => {
       {(signupUser, { data }) => {
         if (data) {
           localStorage.setItem('token', data.signupUser.token);
-          props.history.push('/users'); /* Causing the following error, find alternative solution: 
-          index.js:1446 Warning: Cannot update during an existing state transition 
-          (such as within `render`). Render methods should be a pure function of props and state. */
         }
         return (
         <div>

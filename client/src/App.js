@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link, Route} from 'react-router-dom';
-import Form from './components/Login/Signup';
+import Form from './components/Signup/Signup';
 import Users from './components/Users/Users';
 
 class App extends Component {
