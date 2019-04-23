@@ -18,6 +18,7 @@ const Signup = () => {
     <Mutation mutation={SIGNUP_USER}>
       {(signupUser, { data }) => {
         if (data) {
+          console.log(data);
           localStorage.setItem('token', data.signupUser.token);
         }
         return (

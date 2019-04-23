@@ -1,6 +1,7 @@
 const { gql } = require('apollo-server');
 
-// The GraphQL schema
+// The GraphQL schema express the relationships and the shape of the data to return, 
+// not where the data comes from or how it might be stored.
 const typeDefs = gql`
   type Query {
     users: [User!]!
