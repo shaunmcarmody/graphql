@@ -10,7 +10,7 @@ const SIGNUP_USER = gql`
   }
 `;
 
-const Signup = (props) => {
+const Signup = () => {
   let username;
   let password;
 

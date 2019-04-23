@@ -1,33 +1,25 @@
+const { AuthenticationError, ApolloError } = require('apollo-server');
 const jwt = require('jsonwebtoken');
 
 const secret = 'keep it secret, keep it safe';
 
-const sign = payload =>
-  new Promise((resolve, reject) => {
-    const options = {
-      expiresIn: '1d'
-    }
+const sign = payload => {
+  try {
+    return jwt.sign(payload, secret, { expiresIn: '1d' });
+  } catch (err) {
+    console.log(err.name);
+    throw new ApolloError('Failed to sign token', 500);
+  }
+};
 
-    jwt.sign(payload, secret, options, (err, token) => {
-      if (err) {
-        reject('Failed to sign token');
-      } else {
-        resolve(token)
-      }
-    });
-  })
-
-const verify = token =>
-  new Promise((resolve, reject) => {
-    jwt.verify(token, secret, (err, decodedToken) => {
-      if (err) {
-        reject('Failed to verify token');
-      } else {
-        console.log(decodedToken);
-        resolve(decodedToken)
-      }
-    })
-  })
+const verify = token => {
+  try {
+    return jwt.verify(token, secret)
+  } catch (err) {
+    console.log(err.name);
+    throw new AuthenticationError('Token invalid please log in', 401);
+  }
+}
 
 module.exports = {
   sign,
