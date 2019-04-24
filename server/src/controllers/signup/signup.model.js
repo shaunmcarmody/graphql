@@ -5,6 +5,5 @@ const insertUser = user =>
     .insert(user)
 
 module.exports = {
-  getUserById,
   insertUser
 }
