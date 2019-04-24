@@ -4,7 +4,6 @@ const signupUser = require('../controllers/signup/signup.resolvers.js');
 // A map of functions which return data for the schema.
 const resolvers = {
   Query: {
-    info: () => 'webauth api',
     users
   },
   Mutation: {
