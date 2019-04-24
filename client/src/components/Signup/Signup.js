@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom'
 import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
 
@@ -18,8 +19,8 @@ const Signup = () => {
     <Mutation mutation={SIGNUP_USER}>
       {(signupUser, { data }) => {
         if (data) {
-          console.log(data);
           localStorage.setItem('token', data.signupUser.token);
+          return <Redirect to="/users" />
         }
         return (
         <div>

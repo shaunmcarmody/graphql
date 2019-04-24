@@ -12,6 +12,7 @@ module.exports = async (parent, args, context) => {
       return { token };
     }
   } catch (err) {
+    console.log(err.name);
     return err;
   }
 }
