@@ -1,9 +1,8 @@
 const { getUsers } = require('./users.model.js');
-const { verify } = require('../../utils/jwt.js');
 
-module.exports = async (parent, args, { token }) => {
+module.exports = async (parent, args, context) => {
   try {
-    await verify(token);
+    console.log('context user resolvers', context);
     const resource = await getUsers();
     return resource;
   } catch (err) {

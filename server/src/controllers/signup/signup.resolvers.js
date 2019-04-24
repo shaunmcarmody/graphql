@@ -1,14 +1,15 @@
 const bcrypt = require('bcryptjs');
-const { sign } = require('../../utils/jwt.js');
+const jwt = require('jsonwebtoken');
 const db = require('./signup.model.js');
+
+const secret = 'keep it secret, keep it safe'; // replace with .env
 
 module.exports = async (parent, args, context) => {
   args.password = bcrypt.hashSync(args.password, 4);
   try {
     const [id] = await db.insertUser(args);
     if (id) {
-      const user = await db.getUserById(id);
-      const token = await sign(user);
+      const token = await jwt.sign({ userId: id }, secret, { expiresIn: '1d' });
       return { token };
     }
   } catch (err) {
